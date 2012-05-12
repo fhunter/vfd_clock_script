@@ -2,6 +2,7 @@
 use strict;
 use warnings;
 use LWP::Simple;
+use Switch;
 
 # инициализация дисплея
 sub display_init() {
@@ -54,10 +55,11 @@ sub random_symbols() {
       if($counts[$i]>0){
 	$flag = 1;
         $counts[$i]--;
-        $starts[$i]++;
-        if($starts[$i]>255){
-	   $starts[$i]=33;#Мы же не хотим пробел?
-  	};
+	switch($starts[$i]) {
+		case [0xf2] {  $starts[$i]=0x21	}
+		case [0x9f] {  $starts[$i]=0xe0	}
+		else {	$starts[$i]++ }
+	};
       };
     };
     sleep 0.05 #а здесь задержка, 0.05 секунды - это 20 раз в секунду, то есть
