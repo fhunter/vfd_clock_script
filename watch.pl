@@ -56,9 +56,10 @@ sub random_symbols() {
 	$flag = 1;
         $counts[$i]--;
 	switch($starts[$i]) {
-		case [0xf6] {  $starts[$i]=0x21 }
-		case [0xf2] {  $starts[$i]=0xf6	}
-		case [0x9f] {  $starts[$i]=0xe0	}
+		case [0xf6..0xff] {  $starts[$i]=0x21 }
+		case [0xf2..0xf5] {  $starts[$i]=0xf6 }
+		case [0x9f..0xdf] {  $starts[$i]=0xe0 }
+		case [0x00..0x20] {  $starts[$i]=0x21 }
 		else {	$starts[$i]++ }
 	};
       };
@@ -72,19 +73,22 @@ sub numbers_to_current_time() {
    my($sec,$min,$hour) = @_;
    my $flag = 1;
    while($flag){
-     $flag = (($sec > 0 )&&($min > 0 ) && ($hour > 0));
      &display_goto( 7 , 0 );
      printf "%02d:%02d:%02d",$hour,$min,$sec;
+     $flag = 0;
      if($sec > 0 ){
 	$sec--;
+	$flag = 1;
      };
      if($min >0 ){
 	$min--;
+	$flag = 1;
      };
      if($hour >0 ){
 	$hour--;
+	$flag = 1;
      };
-     sleep 0.1;#Задержка на отсчёт - до 6 секунд в худшем случае
+     sleep 0.4;#Задержка на отсчёт - до 24 секунд в худшем случае
    };
 };
 
