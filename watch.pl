@@ -92,9 +92,8 @@ sub numbers_to_current_time() {
 sub display_time() {
    my($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = localtime(time());
    my @abbr = qw( Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec );
-   if( $sec > 5 ){
+   if( $sec < 5 ){
 #цветомузыка однако
-#в рабочей версии нужно инвертировать условие
      printf "%s %02d ",$abbr[$mon],$mday;
      &random_symbols();
      sleep 0.5;#Ну рандом прошёл. Дали впечатлиться
