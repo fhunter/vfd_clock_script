@@ -14,14 +14,10 @@ sub display_init() {
 }
 
 # переход в указанную позицию
-#sub display_goto() {
-#   my ($x, $y) = @_;
-#   my $pos = $x + $y*20;
-#   print pack("CC",0x1b,$pos);
-#}
 sub display_goto() {
    my ($x, $y) = @_;
-   printf "[%d,%dH",$y+1,$x+1;
+   my $pos = $x + $y*20;
+   print pack("CC",0x1b,$pos);
 }
 
 # получение текущей погоды
