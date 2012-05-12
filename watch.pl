@@ -3,6 +3,7 @@ use strict;
 use warnings;
 use LWP::Simple;
 use Switch;
+use Time::HiRes qw ( alarm sleep );
 
 # инициализация дисплея
 sub display_init() {
@@ -70,7 +71,7 @@ sub random_symbols() {
 }
 
 sub numbers_to_current_time() {
-   my($sec,$min,$hour) = @_;
+   my($hour,$min,$sec) = @_;
    my $flag = 1;
    while($flag){
      &display_goto( 7 , 0 );
