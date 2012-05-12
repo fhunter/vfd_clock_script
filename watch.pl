@@ -96,12 +96,13 @@ sub numbers_to_current_time() {
 sub display_time() {
    my($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = localtime(time());
    my @abbr = qw( Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec );
-   if( $sec < 5 ){
+   if( $sec == 0 ){
 #цветомузыка однако
      printf "%s %02d ",$abbr[$mon],$mday;
-     &numbers_to_current_time($hour,$min,$sec);
+     &numbers_to_current_time($hour,$min,59);
      sleep 2;#Ну рандом прошёл. Дали впечатлиться
      &random_symbols();
+     sleep 1;#Даём впечатлится ещё раз
    }else{
       printf "%s %02d %02d:%02d:%02d",$abbr[$mon],$mday,$hour,$min,$sec;
    };
@@ -137,5 +138,5 @@ while(1) {
        $last_weather_update = time();
    }
 
-   sleep 1;
+   sleep 0.5;
 }
