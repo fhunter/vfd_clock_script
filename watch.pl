@@ -46,6 +46,7 @@ sub random_symbols() {
   };
   my $flag=1;
   while($flag){
+
     &display_goto(7,0);
     printf "%c%c:%c%c:%c%c",$starts[0],$starts[1],$starts[2],$starts[3],$starts[4],$starts[5];
     $flag=0;
@@ -64,6 +65,26 @@ sub random_symbols() {
 }
 
 sub numbers_to_current_time() {
+   my($sec,$min,$hour) = @_;
+   my $sec_curr=int(rand(99));
+   my $min_curr=int(rand(99));
+   my $hour_curr=int(rand(99));
+   my $flag = 1;
+   while($flag){
+     $flag = (($sec == $sec_curr)&&($min == $min_curr) && ($hour == $hour_curr));
+     &display_goto( 7 , 0 );
+     printf "%02d:%02d:%02d",$hour_curr,$min_curr,$sec_curr;
+     if($sec != $sec_curr ){
+	$sec_curr--;
+     };
+     if($min !=$min_curr){
+	$min_curr--;
+     };
+     if($hour != $hour_curr){
+	$hour_curr--;
+     };
+     sleep 0.1;
+   };
 };
 
 # вывод времени
@@ -75,7 +96,8 @@ sub display_time() {
 #в рабочей версии нужно инвертировать условие
      printf "%s %02d ",$abbr[$mon],$mday;
      &random_symbols();
-     &numbers_to_current_time();
+     sleep 0.5;#Ну рандом прошёл. Дали впечатлиться
+     &numbers_to_current_time($hour,$min,$sec);
    }else{
       printf "%s %02d %02d:%02d:%02d",$abbr[$mon],$mday,$hour,$min,$sec;
    };
