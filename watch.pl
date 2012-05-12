@@ -56,7 +56,8 @@ sub random_symbols() {
 	$flag = 1;
         $counts[$i]--;
 	switch($starts[$i]) {
-		case [0xf2] {  $starts[$i]=0x21	}
+		case [0xf6] {  $starts[$i]=0x21 }
+		case [0xf2] {  $starts[$i]=0xf6	}
 		case [0x9f] {  $starts[$i]=0xe0	}
 		else {	$starts[$i]++ }
 	};
