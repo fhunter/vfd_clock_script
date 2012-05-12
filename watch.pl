@@ -42,7 +42,7 @@ sub random_symbols() {
   my $i = 0;
   for($i=0;$i<6;$i++){
     $counts[$i]=int(rand(512))+32;
-    $starts[$i]=int(rand(255-32))+32;
+    $starts[$i]=int(rand(255-33))+33;#Мы же не хотим пробел?
   };
   my $flag=1;
   while($flag){
@@ -56,7 +56,7 @@ sub random_symbols() {
         $counts[$i]--;
         $starts[$i]++;
         if($starts[$i]>255){
-	   $starts[$i]=32;
+	   $starts[$i]=33;#Мы же не хотим пробел?
   	};
       };
     };
