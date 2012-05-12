@@ -67,24 +67,21 @@ sub random_symbols() {
 
 sub numbers_to_current_time() {
    my($sec,$min,$hour) = @_;
-   my $sec_curr=int(rand(99));
-   my $min_curr=int(rand(99));
-   my $hour_curr=int(rand(99));
    my $flag = 1;
    while($flag){
-     $flag = (($sec == $sec_curr)&&($min == $min_curr) && ($hour == $hour_curr));
+     $flag = (($sec > 0 )&&($min > 0 ) && ($hour > 0));
      &display_goto( 7 , 0 );
-     printf "%02d:%02d:%02d",$hour_curr,$min_curr,$sec_curr;
-     if($sec != $sec_curr ){
-	$sec_curr--;
+     printf "%02d:%02d:%02d",$hour,$min,$sec;
+     if($sec > 0 ){
+	$sec--;
      };
-     if($min !=$min_curr){
-	$min_curr--;
+     if($min >0 ){
+	$min--;
      };
-     if($hour != $hour_curr){
-	$hour_curr--;
+     if($hour >0 ){
+	$hour--;
      };
-     sleep 0.1;#Задержка на отсчёт - до 10 секунд в худшем случае
+     sleep 0.1;#Задержка на отсчёт - до 6 секунд в худшем случае
    };
 };
 
@@ -95,9 +92,9 @@ sub display_time() {
    if( $sec < 5 ){
 #цветомузыка однако
      printf "%s %02d ",$abbr[$mon],$mday;
-     &random_symbols();
-     sleep 0.5;#Ну рандом прошёл. Дали впечатлиться
      &numbers_to_current_time($hour,$min,$sec);
+     sleep 2;#Ну рандом прошёл. Дали впечатлиться
+     &random_symbols();
    }else{
       printf "%s %02d %02d:%02d:%02d",$abbr[$mon],$mday,$hour,$min,$sec;
    };
