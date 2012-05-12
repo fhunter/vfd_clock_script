@@ -43,7 +43,7 @@ sub random_symbols() {
   my @starts = ( );
   my $i = 0;
   for($i=0;$i<6;$i++){
-    $counts[$i]=int(rand(512))+32;#Это количество итераций - от 32 до 511+32
+    $counts[$i]=int(rand(200))+32;#Это количество итераций - от 32 до 200+32
     $starts[$i]=int(rand(255-33))+33;#Мы же не хотим пробел?
   };
   my $flag=1;
@@ -66,28 +66,30 @@ sub random_symbols() {
       };
     };
     sleep 0.05 #а здесь задержка, 0.05 секунды - это 20 раз в секунду, то есть
-	#до 27 секунд на рандом (512+32)/20
+	#до 11 секунд на рандом (200+32)/20
   };
 }
 
 sub numbers_to_current_time() {
    my($hour,$min,$sec) = @_;
+   my @numbers = ( 0,0,0,0,0,0);
+   $numbers[0]=int($hour/10);
+   $numbers[1]=$hour%10;
+   $numbers[2]=int($min/10);
+   $numbers[3]=$min%10;
+   $numbers[4]=int($sec/10);
+   $numbers[5]=$sec%10;
    my $flag = 1;
+   my $i=0;
    while($flag){
      &display_goto( 7 , 0 );
-     printf "%02d:%02d:%02d",$hour,$min,$sec;
+     printf "%1d%1d:%1d%1d:%1d%1d",$numbers[0],$numbers[1],$numbers[2],$numbers[3],$numbers[4],$numbers[5];
      $flag = 0;
-     if($sec > 0 ){
-	$sec--;
-	$flag = 1;
-     };
-     if($min >0 ){
-	$min--;
-	$flag = 1;
-     };
-     if($hour >0 ){
-	$hour--;
-	$flag = 1;
+     for($i=0;$i<6;$i++){
+	if($numbers[$i]>0){
+		$numbers[$i]--;
+		$flag = 1;
+	};
      };
      sleep 0.4;#Задержка на отсчёт - до 24 секунд в худшем случае
    };
@@ -101,9 +103,9 @@ sub display_time() {
 #цветомузыка однако
      printf "%s %02d ",$abbr[$mon],$mday;
      &numbers_to_current_time($hour,$min,59);
-     sleep 2;#Ну рандом прошёл. Дали впечатлиться
+     sleep 0.4;#Ну рандом прошёл. Дали впечатлиться
      &random_symbols();
-     sleep 1;#Даём впечатлится ещё раз
+     sleep 0.5;#Даём впечатлится ещё раз
    }else{
       printf "%s %02d %02d:%02d:%02d",$abbr[$mon],$mday,$hour,$min,$sec;
    };
